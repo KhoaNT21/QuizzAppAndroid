@@ -67,6 +67,23 @@ class registerState extends State<register> {
             Container(
               padding: EdgeInsets.only(top: 10, left: 40, right: 40),
               child: TextField(
+                decoration: InputDecoration(
+                    isCollapsed: true,
+                    contentPadding: EdgeInsets.all(13),
+                    fillColor: Colors.white,
+                    filled: true,
+                    labelText: 'Tên Người Chơi',
+                    hintText: '*',
+                    hintTextDirection: TextDirection.rtl,
+                    hintStyle: TextStyle(color: Colors.red),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(12))),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 10, left: 40, right: 40),
+              child: TextField(
                 obscureText: true,
                 decoration: InputDecoration(
                     isCollapsed: true,
