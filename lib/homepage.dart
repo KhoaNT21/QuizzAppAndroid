@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/account.dart';
 import 'package:flutter_application_1/credit.dart';
 import 'package:flutter_application_1/history.dart';
 import 'package:flutter_application_1/linhvuc.dart';
 import 'package:flutter_application_1/login.dart';
+import 'package:flutter_application_1/provider/google_signin.dart';
 import 'package:flutter_application_1/question.dart';
 import 'package:flutter_application_1/rank.dart';
 
@@ -35,8 +37,12 @@ class _homepageState extends State<homepage> {
                 backgroundColor: Colors.grey,
                 radius: 50,
                 child: ClipOval(
-                  child: Image.asset(
-                    'images/beluga.jpg',
+                  // child: Image.asset(
+                  //   'images/beluga.jpg',
+                  //   fit: BoxFit.fill,
+                  // ),
+                  child: Image.network(
+                    FirebaseAuth.instance.currentUser!.photoURL!,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -45,7 +51,8 @@ class _homepageState extends State<homepage> {
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text(
-                'Tên Đăng Nhập',
+                // 'Tên Đăng Nhập',
+                "${FirebaseAuth.instance.currentUser!.displayName}",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
@@ -196,7 +203,8 @@ class _homepageState extends State<homepage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
                     minimumSize: Size(239, 50)),
-                onPressed: () {
+                onPressed: () async {
+                  await GoogleSignInProvider().signOut();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => login()));
                 },

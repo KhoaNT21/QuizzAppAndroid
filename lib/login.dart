@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/box.dart';
 import 'package:flutter_application_1/forgetpass.dart';
 import 'package:flutter_application_1/homepage.dart';
+import 'package:flutter_application_1/provider/google_signin.dart';
 import 'package:flutter_application_1/register.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 class login extends StatefulWidget {
   @override
@@ -12,10 +17,13 @@ class login extends StatefulWidget {
 }
 
 class loginState extends State<login> {
+  // GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+
   TextEditingController txtTaiKhoan = new TextEditingController();
   TextEditingController txtMatKhau = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    // GoogleSignInAccount? user = _googleSignIn.currentUser;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -149,24 +157,42 @@ class loginState extends State<login> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    height: 60.0,
-                    width: 60.0,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        image: DecorationImage(
-                            image: AssetImage('images/fb.jpg'))),
+                  ClipOval(
+                    child: Material(
+                        child: InkWell(
+                            onTap: () {},
+                            child: Ink.image(
+                              image: AssetImage('images/fb.jpg'),
+                              width: 60,
+                              height: 60,
+                              fit: BoxFit.cover,
+                            ))),
                   ),
-                  Container(
-                    height: 60.0,
-                    width: 60.0,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        image: DecorationImage(
-                            image: AssetImage('images/google.jpg'))),
-                  )
+                  ClipOval(
+                    child: Material(
+                        child: InkWell(
+                            onTap: () async {
+                              //         await _googleSignIn.signIn();
+                              //         setState(() {});
+                              //         Navigator.push(
+                              // context, MaterialPageRoute(builder: (_) => register()));
+                              // final provider =
+                              //     Provider.of<GoogleSignInProvider>(context,
+                              //         listen: false);
+                              // provider.googleLogin();
+                              await GoogleSignInProvider().signInWithGoogle();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => homepage()));
+                            },
+                            child: Ink.image(
+                              image: AssetImage('images/google.jpg'),
+                              width: 60,
+                              height: 60,
+                              fit: BoxFit.cover,
+                            ))),
+                  ),
                 ],
               ),
             )
