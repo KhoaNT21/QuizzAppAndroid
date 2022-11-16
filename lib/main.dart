@@ -9,7 +9,7 @@ import 'package:flutter_application_1/question.dart';
 import 'package:flutter_application_1/rank.dart';
 import 'package:flutter_application_1/register.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());

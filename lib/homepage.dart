@@ -37,22 +37,22 @@ class _homepageState extends State<homepage> {
                 backgroundColor: Colors.grey,
                 radius: 50,
                 child: ClipOval(
-                  // child: Image.asset(
-                  //   'images/beluga.jpg',
-                  //   fit: BoxFit.fill,
-                  // ),
-                  child: Image.network(
-                    FirebaseAuth.instance.currentUser!.photoURL!,
+                  child: Image.asset(
+                    'images/beluga.jpg',
                     fit: BoxFit.fill,
                   ),
+                  // child: Image.network(
+                  //   FirebaseAuth.instance.currentUser!.photoURL!,
+                  //   fit: BoxFit.fill,
+                  // ),
                 ),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text(
-                // 'Tên Đăng Nhập',
-                "${FirebaseAuth.instance.currentUser!.displayName}",
+                'Tên Đăng Nhập',
+                // "${FirebaseAuth.instance.currentUser!.displayName}",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,

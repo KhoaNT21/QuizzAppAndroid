@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,7 @@ class loginState extends State<login> {
             Container(
               padding: EdgeInsets.only(top: 70, left: 40, right: 40),
               child: TextField(
+                controller: txtTaiKhoan,
                 decoration: InputDecoration(
                     isCollapsed: true,
                     contentPadding: EdgeInsets.all(13),
@@ -64,6 +66,8 @@ class loginState extends State<login> {
             Container(
               padding: EdgeInsets.only(top: 10, left: 40, right: 40),
               child: TextField(
+                controller: txtMatKhau,
+                obscureText: true,
                 decoration: InputDecoration(
                     isCollapsed: true,
                     contentPadding: EdgeInsets.all(13),
@@ -84,9 +88,17 @@ class loginState extends State<login> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
                     minimumSize: Size(239, 50)),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => homepage()));
+                onPressed: () async {
+                  String tentaikhoan = txtTaiKhoan.text.trim();
+                  String matkhau = txtMatKhau.text.trim();
+                  QuerySnapshot snap = await FirebaseFirestore.instance
+                      .collection("account")
+                      .where('tentaikhoan', isEqualTo: tentaikhoan)
+                      .get();
+                  if (matkhau == snap.docs[0]['matkhau']) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => homepage()));
+                  }
                 },
                 child: const Text(
                   'Đăng Nhập',
