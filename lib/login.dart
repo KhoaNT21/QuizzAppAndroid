@@ -155,31 +155,12 @@ class loginState extends State<login> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ClipOval(
                     child: Material(
                         child: InkWell(
-                            onTap: () {},
-                            child: Ink.image(
-                              image: AssetImage('images/fb.jpg'),
-                              width: 60,
-                              height: 60,
-                              fit: BoxFit.cover,
-                            ))),
-                  ),
-                  ClipOval(
-                    child: Material(
-                        child: InkWell(
                             onTap: () async {
-                              //         await _googleSignIn.signIn();
-                              //         setState(() {});
-                              //         Navigator.push(
-                              // context, MaterialPageRoute(builder: (_) => register()));
-                              // final provider =
-                              //     Provider.of<GoogleSignInProvider>(context,
-                              //         listen: false);
-                              // provider.googleLogin();
                               await GoogleSignInProvider().signInWithGoogle();
                               Navigator.push(
                                   context,
