@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/login.dart';
+import 'package:flutter_application_1/obj/dangky_obj.dart';
+import 'package:flutter_application_1/obj/dangkyuser_obj.dart';
+import 'package:flutter_application_1/provider/dangky_provider.dart';
 
 class register extends StatefulWidget {
   @override
@@ -9,6 +12,10 @@ class register extends StatefulWidget {
 }
 
 class registerState extends State<register> {
+  TextEditingController txtTentaikhoan = new TextEditingController();
+  TextEditingController txtMatkhau = new TextEditingController();
+  TextEditingController txtSdt = new TextEditingController();
+  TextEditingController txtTenNguoiChoi = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,20 +43,10 @@ class registerState extends State<register> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Container(
-            //   padding: const EdgeInsets.only(top: 90),
-            //   child: Text(
-            //     'Đăng Ký',
-            //     textAlign: TextAlign.center,
-            //     style: TextStyle(
-            //       fontSize: 40,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
             Container(
               padding: EdgeInsets.only(top: 250, left: 40, right: 40),
               child: TextField(
+                controller: txtTentaikhoan,
                 decoration: InputDecoration(
                     isCollapsed: true,
                     contentPadding: EdgeInsets.all(13),
@@ -64,26 +61,25 @@ class registerState extends State<register> {
                         borderRadius: BorderRadius.circular(12))),
               ),
             ),
+            // Container(
+            //   padding: EdgeInsets.only(left: 40, right: 40),
+            //   child: TextField(
+            //     controller: txtTenNguoiChoi,
+            //     decoration: InputDecoration(
+            //         isCollapsed: true,
+            //         contentPadding: EdgeInsets.all(13),
+            //         fillColor: Colors.white,
+            //         filled: true,
+            //         hintText: 'Tên Người Chơi',
+            //         border: OutlineInputBorder(
+            //             borderSide: BorderSide.none,
+            //             borderRadius: BorderRadius.circular(12))),
+            //   ),
+            // ),
             Container(
               padding: EdgeInsets.only(top: 10, left: 40, right: 40),
               child: TextField(
-                decoration: InputDecoration(
-                    isCollapsed: true,
-                    contentPadding: EdgeInsets.all(13),
-                    fillColor: Colors.white,
-                    filled: true,
-                    labelText: 'Tên Người Chơi',
-                    hintText: '*',
-                    hintTextDirection: TextDirection.rtl,
-                    hintStyle: TextStyle(color: Colors.red),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(12))),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 10, left: 40, right: 40),
-              child: TextField(
+                controller: txtMatkhau,
                 obscureText: true,
                 decoration: InputDecoration(
                     isCollapsed: true,
@@ -102,6 +98,7 @@ class registerState extends State<register> {
             Container(
               padding: EdgeInsets.only(top: 10, left: 40, right: 40),
               child: TextField(
+                controller: txtSdt,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                     isCollapsed: true,
@@ -124,8 +121,28 @@ class registerState extends State<register> {
                         borderRadius: BorderRadius.circular(12)),
                     minimumSize: Size(239, 50)),
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => login()));
+                  if (txtTentaikhoan.text.isEmpty ||
+                      txtMatkhau.text.isEmpty ||
+                      txtSdt.text.isEmpty) {
+                    final snackBar = SnackBar(content: Text('Chưa Nhập Đủ'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    return;
+                  }
+                  if (txtSdt.text.length != 10) {
+                    final snackBar =
+                        SnackBar(content: Text('Sai Định Dạng Số Điện Thoại'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    return;
+                  }
+                  final taikhoan = DangKyObject(
+                    tentaikhoan: txtTentaikhoan.text,
+                    matkhau: txtMatkhau.text,
+                    Sdt: txtSdt.text,
+                  );
+                  // final nguoichoi =
+                  //     DangKyuserObject(tennguoichoi: txtTenNguoiChoi.text);
+                  DangKy(taikhoan);
+                  Navigator.pop(context);
                 },
                 child: const Text(
                   'Đăng Ký',

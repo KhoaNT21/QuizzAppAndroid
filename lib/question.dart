@@ -29,21 +29,21 @@ class _questionState extends State<question> {
     );
   }
 
-  void _handleNext() {
-    if (_answers[_currentIndex] == null) {
-      _showAlertDialog();
-      return;
-    }
-    if (_currentIndex < (questionsData.length - 1)) {
-      setState(() {
-        _currentIndex++;
-      });
-    } else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => homepage(),
-      ));
-    }
-  }
+  // void _handleNext() {
+  //   if (_answers[_currentIndex] == null) {
+  //     _showAlertDialog();
+  //     return;
+  //   }
+  //   if (_currentIndex < (questionsData.length - 1)) {
+  //     setState(() {
+  //       _currentIndex++;
+  //     });
+  //   } else {
+  //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+  //       builder: (context) => homepage(),
+  //     ));
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +245,7 @@ class _questionState extends State<question> {
                                   borderRadius: BorderRadius.circular(12)),
                               minimumSize: Size(50, 50)),
                           onPressed: () {
-                            _handleNext();
+                            // _handleNext();
                           },
                         ),
                       ),

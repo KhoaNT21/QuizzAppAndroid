@@ -19,9 +19,16 @@ class login extends StatefulWidget {
 
 class loginState extends State<login> {
   // GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-
   TextEditingController txtTaiKhoan = new TextEditingController();
   TextEditingController txtMatKhau = new TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    txtTaiKhoan.dispose();
+    txtMatKhau.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // GoogleSignInAccount? user = _googleSignIn.currentUser;
@@ -96,8 +103,12 @@ class loginState extends State<login> {
                       .where('tentaikhoan', isEqualTo: tentaikhoan)
                       .get();
                   if (matkhau == snap.docs[0]['matkhau']) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => homepage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => homepage(
+                                  value: txtTaiKhoan.text,
+                                )));
                   }
                 },
                 child: const Text(
@@ -174,10 +185,14 @@ class loginState extends State<login> {
                         child: InkWell(
                             onTap: () async {
                               await GoogleSignInProvider().signInWithGoogle();
+                              final String? a = FirebaseAuth
+                                  .instance.currentUser!.displayName;
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => homepage()));
+                                      builder: (_) => homepage(
+                                            value: a,
+                                          )));
                             },
                             child: Ink.image(
                               image: AssetImage('images/google.jpg'),

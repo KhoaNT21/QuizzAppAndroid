@@ -8,9 +8,11 @@ import 'package:flutter_application_1/login.dart';
 import 'package:flutter_application_1/provider/google_signin.dart';
 import 'package:flutter_application_1/question.dart';
 import 'package:flutter_application_1/rank.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class homepage extends StatefulWidget {
-  const homepage({super.key});
+  const homepage({Key? key, required this.value}) : super(key: key);
+  final String? value;
 
   @override
   State<homepage> createState() => _homepageState();
@@ -37,22 +39,22 @@ class _homepageState extends State<homepage> {
                 backgroundColor: Colors.grey,
                 radius: 50,
                 child: ClipOval(
-                  child: Image.asset(
-                    'images/beluga.jpg',
-                    fit: BoxFit.fill,
-                  ),
-                  // child: Image.network(
-                  //   FirebaseAuth.instance.currentUser!.photoURL!,
+                  // child: Image.asset(
+                  //   'images/beluga.jpg',
                   //   fit: BoxFit.fill,
                   // ),
+                  child: Image.network(
+                    FirebaseAuth.instance.currentUser!.photoURL!,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text(
-                'Tên Đăng Nhập',
-                // "${FirebaseAuth.instance.currentUser!.displayName}",
+                //'${widget.value}',
+                "${FirebaseAuth.instance.currentUser!.displayName}",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
@@ -69,7 +71,7 @@ class _homepageState extends State<homepage> {
                 ),
                 Container(
                   child: Text(
-                    '64',
+                    '0',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 23,

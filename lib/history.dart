@@ -59,8 +59,8 @@ class _historyState extends State<history> {
                         fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => homepage()));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => homepage()));
                   },
                 ),
               ),

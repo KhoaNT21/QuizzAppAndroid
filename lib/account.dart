@@ -89,8 +89,7 @@ class _accountState extends State<account> {
                         borderRadius: BorderRadius.circular(12)),
                     minimumSize: Size(239, 50)),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => homepage()));
+                  Navigator.pop(context);
                 },
                 child: Text(
                   "Cập Nhật",
